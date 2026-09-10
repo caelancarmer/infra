@@ -14,6 +14,12 @@ import {
   builtInPortableAdapterDefinitions,
   validatePortableAdapterDefinition
 } from '../src/portable-adapter-contract.mjs';
+import {
+  INFRA_AGENT_TOOL_CONTRACT_VERSION,
+  agentToolActivity,
+  agentToolDefinition,
+  agentToolVocabulary
+} from '../src/agent-tool-vocabulary.mjs';
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'infra-public-core-'));
 const store = new WorkStateStore(path.join(root, 'events.jsonl'));
@@ -70,6 +76,13 @@ for (const definition of builtInPortableAdapterDefinitions()) {
   assert.equal(validatePortableAdapterDefinition(definition).valid, true);
   assert.ok(buildPortableResumeEnvelope(definition, portableProduct));
 }
+
+assert.equal(INFRA_AGENT_TOOL_CONTRACT_VERSION, '1.0.0');
+assert.equal(agentToolVocabulary().length, 6);
+assert.equal(agentToolDefinition('infra_resume_work').title, 'Infra Relay');
+assert.equal(agentToolDefinition('infra_preflight_effect').capability, 'managed-refinery');
+assert.equal(agentToolActivity('infra_complete_work'), 'Applying Infra Seal');
+assert.throws(() => agentToolDefinition('infra_unknown'), /Unknown Infra agent tool/);
 
 console.log('PASS public-safe continuation core contract');
 

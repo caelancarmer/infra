@@ -11,6 +11,7 @@ This repository contains a useful, self-contained local foundation:
 - normalized agent events and idempotency;
 - continuation compilation and resume packages;
 - portable envelopes for Codex, Claude Code, n8n, Dify, and custom adapters;
+- a stable six-concept agent-tool vocabulary for portable integrations;
 - local component tests and a repository-boundary check;
 - a self-contained loopback runtime with JSONL persistence.
 
@@ -65,6 +66,23 @@ Core local endpoints:
 - `GET /v1/work/:work-id/history`
 - `GET /v1/work/:work-id/export`
 - `DELETE /v1/work/:work-id`
+
+## Agent-tool vocabulary
+
+Infra uses six stable product concepts across Codex, Claude Code, n8n, Dify, and future integrations:
+
+| Concept | Tool contract | Purpose |
+| --- | --- | --- |
+| Infra Work | `infra_begin_work` | Open tracked work |
+| Infra Mark | `infra_checkpoint` | Set a verified safe point |
+| Infra Relay | `infra_resume_work` | Prepare successor context |
+| Infra Gate | `infra_preflight_effect` | Check a material action before execution |
+| Infra Receipt | `infra_record_effect` | Record evidence of an external effect |
+| Infra Seal | `infra_complete_work` | Close work after verification |
+
+The public local alpha currently implements Work, Mark, and Relay. Gate, Receipt, and Seal require managed
+governance and verification capabilities that are not included here. See the
+[agent-tool vocabulary](docs/agent-tool-vocabulary.md) for activity labels, naming rules, and host UI behavior.
 
 ## Verify the extraction
 

@@ -14,6 +14,7 @@
     "default": "PolyForm Shield License 1.0.0",
     "mit": [
       "src/agent-adapters.mjs",
+      "src/agent-tool-vocabulary.mjs",
       "src/portable-adapter-contract.mjs"
     ],
     "proprietary_excluded": [
@@ -32,6 +33,7 @@
     "README.md",
     "SECURITY.md",
     "contributing.md",
+    "docs/agent-tool-vocabulary.md",
     "docs/compatibility.md",
     "docs/data-handling.md",
     "docs/licensing.md",
@@ -47,6 +49,7 @@
     "scripts/setup-local.mjs",
     "scripts/verify-boundary.mjs",
     "src/agent-adapters.mjs",
+    "src/agent-tool-vocabulary.mjs",
     "src/canonical-history.mjs",
     "src/continuation-compiler.mjs",
     "src/continuation-events.mjs",
@@ -86,6 +89,7 @@
     "docs/data-handling.md",
     "docs/shared-responsibility.md",
     "docs/telemetry.md",
+    "src/agent-tool-vocabulary.mjs",
     "src/local-config.mjs",
     "src/local-work-service.mjs",
     "src/local-http-api.mjs",
