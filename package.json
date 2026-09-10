@@ -1,0 +1,30 @@
+{
+  "name": "infra",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "description": "Portable, verifiable continuation infrastructure for long-running agent work.",
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0"
+  },
+  "scripts": {
+    "compatibility": "node scripts/check-compatibility.mjs",
+    "setup": "node scripts/setup-local.mjs",
+    "start": "node src/local-server.mjs",
+    "remove": "node scripts/remove-local.mjs",
+    "clean-room": "node scripts/clean-room-rehearsal.mjs",
+    "test": "node scripts/check-compatibility.mjs && node test/runtime-compatibility.test.mjs && node test/core-contract.test.mjs && node test/local-runtime.test.mjs && node test/local-setup.test.mjs && node scripts/verify-boundary.mjs"
+  },
+  "author": {
+    "name": "Caelan Carmer"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caelancarmer/infra.git"
+  },
+  "bugs": {
+    "url": "https://github.com/caelancarmer/infra/issues"
+  },
+  "homepage": "https://github.com/caelancarmer/infra#readme"
+}
