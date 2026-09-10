@@ -41,6 +41,34 @@ let result = await request(runtime.baseUrl, '/health');
 assert.equal(result.status, 200);
 assert.equal(result.body.ok, true);
 
+result = await request(runtime.baseUrl, '/v1/tools');
+assert.equal(result.status, 200);
+assert.equal(result.body.tools.length, 6);
+assert.equal(result.body.tools.filter(tool => tool.available).length, 3);
+
+result = await request(runtime.baseUrl, '/v1/tools/infra_begin_work', {
+  method: 'POST',
+  body: JSON.stringify({
+    work_id: 'tool-http-001',
+    goal: 'Invoke Infra from a workflow host',
+    next_action: 'prepare a relay'
+  })
+});
+assert.equal(result.status, 200);
+assert.equal(result.body.state.work_id, 'tool-http-001');
+
+result = await request(runtime.baseUrl, '/v1/tools/infra_preflight_effect', {
+  method: 'POST',
+  body: JSON.stringify({
+    work_id: 'tool-http-001',
+    effect_id: 'effect-001',
+    effect_type: 'deployment',
+    idempotency_key: 'effect-001'
+  })
+});
+assert.equal(result.status, 501);
+assert.equal(result.body.error, 'capability-unavailable');
+
 result = await request(runtime.baseUrl, '/v1/work', {
   method: 'POST',
   body: JSON.stringify({

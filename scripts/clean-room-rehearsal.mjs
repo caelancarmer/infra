@@ -41,6 +41,7 @@ try {
   if (fs.existsSync(path.join(cleanRoot, '.git'))) throw new Error('Clean-room package unexpectedly contains Git metadata');
   if (fs.existsSync(path.join(cleanRoot, 'node_modules'))) throw new Error('Clean-room package unexpectedly contains dependencies');
 
+  run(process.execPath, [npmCli, 'ci', '--ignore-scripts', '--no-audit', '--no-fund'], cleanRoot);
   run(process.execPath, [npmCli, 'test'], cleanRoot);
   run(process.execPath, [npmCli, 'run', 'setup'], cleanRoot);
 

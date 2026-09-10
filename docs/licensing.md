@@ -6,7 +6,7 @@ Infra uses a deliberately split licensing model. The public repository is useful
 
 | Scope | License | What that means |
 | --- | --- | --- |
-| `src/agent-adapters.mjs` and `src/portable-adapter-contract.mjs` | MIT | May be used, modified, distributed, sublicensed, and included in commercial products when the MIT notice is preserved. |
+| `src/agent-adapters.mjs`, `src/agent-tool-vocabulary.mjs`, `src/agent-interface-contract.mjs`, `src/mcp-server.mjs`, `src/mcp-stdio.mjs`, and `src/portable-adapter-contract.mjs` | MIT | May be used, modified, distributed, sublicensed, and included in commercial products when the MIT notice is preserved. |
 | Every other file in this repository unless a file states otherwise | PolyForm Shield License 1.0.0 | Source is available for permitted purposes, including self-hosting and modification, but may not be used to provide a product that competes with Infra or another product provided by the licensor. |
 | Managed refinery and control-plane systems not present in this repository | Proprietary | No rights are granted by this repository because those systems are not distributed here. |
 

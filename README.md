@@ -12,6 +12,7 @@ This repository contains a useful, self-contained local foundation:
 - continuation compilation and resume packages;
 - portable envelopes for Codex, Claude Code, n8n, Dify, and custom adapters;
 - a stable six-concept agent-tool vocabulary for portable integrations;
+- one transport-neutral agent interface exposed through MCP stdio and local HTTP;
 - local component tests and a repository-boundary check;
 - a self-contained loopback runtime with JSONL persistence.
 
@@ -35,6 +36,7 @@ No personal email address or unrelated identity is embedded in the package metad
 Requires a maintained Node.js 22 or Node.js 24 LTS release. No cloud account, model key, or external database is required.
 
 ```bash
+npm install
 npm run setup
 npm start
 ```
@@ -66,6 +68,14 @@ Core local endpoints:
 - `GET /v1/work/:work-id/history`
 - `GET /v1/work/:work-id/export`
 - `DELETE /v1/work/:work-id`
+
+Agent and workflow entry points:
+
+- `npm run mcp` for a local MCP stdio connection from Codex or Claude Code;
+- `GET /v1/tools` to discover all six contracts and their availability;
+- `POST /v1/tools/:tool-name` for n8n, Dify, or another HTTP workflow host.
+
+See the [agent interface contract](docs/agent-interface-contract.md) for setup and capability boundaries.
 
 ## Agent-tool vocabulary
 

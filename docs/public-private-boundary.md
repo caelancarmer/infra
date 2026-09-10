@@ -8,6 +8,7 @@
 - normalized continuation events and idempotency;
 - continuation compiler and resume package;
 - portable adapter definitions and resume envelopes;
+- the six-tool interface contract, MCP stdio server, and local HTTP tool invocation;
 - component-level tests.
 
 This is a functional self-hosted runtime, not a mock or documentation-only SDK. It can create work, capture events, checkpoint state, preserve verifiable history, compile a continuation package, export records, and delete local records.
@@ -31,7 +32,9 @@ A file is included only when it is explicitly allowlisted in `extraction-manifes
 
 ## License boundary
 
-- `src/agent-adapters.mjs` and `src/portable-adapter-contract.mjs` are MIT licensed so third-party tools can integrate without inheriting the runtime restriction.
+- `src/agent-adapters.mjs`, `src/agent-tool-vocabulary.mjs`, `src/agent-interface-contract.mjs`,
+  `src/mcp-server.mjs`, `src/mcp-stdio.mjs`, and `src/portable-adapter-contract.mjs` are MIT licensed so
+  third-party tools can integrate without inheriting the runtime restriction.
 - All other files are governed by PolyForm Shield 1.0.0 unless a file explicitly says otherwise.
 - Excluded managed-refinery systems are proprietary and receive no license grant through this repository.
 

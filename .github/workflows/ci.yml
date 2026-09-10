@@ -31,6 +31,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           package-manager-cache: false
+      - name: Install locked dependencies
+        run: npm ci
       - name: Run package tests
         run: npm test
       - name: Run clean-room rehearsal

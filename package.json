@@ -12,9 +12,10 @@
     "compatibility": "node scripts/check-compatibility.mjs",
     "setup": "node scripts/setup-local.mjs",
     "start": "node src/local-server.mjs",
+    "mcp": "node src/mcp-stdio.mjs",
     "remove": "node scripts/remove-local.mjs",
     "clean-room": "node scripts/clean-room-rehearsal.mjs",
-    "test": "node scripts/check-compatibility.mjs && node test/runtime-compatibility.test.mjs && node test/core-contract.test.mjs && node test/local-runtime.test.mjs && node test/local-setup.test.mjs && node scripts/verify-boundary.mjs"
+    "test": "node scripts/check-compatibility.mjs && node test/runtime-compatibility.test.mjs && node test/core-contract.test.mjs && node test/agent-interface-contract.test.mjs && node test/mcp-server.test.mjs && node test/local-runtime.test.mjs && node test/local-setup.test.mjs && node scripts/verify-boundary.mjs"
   },
   "author": {
     "name": "Caelan Carmer"
@@ -26,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/caelancarmer/infra/issues"
   },
-  "homepage": "https://github.com/caelancarmer/infra#readme"
+  "homepage": "https://github.com/caelancarmer/infra#readme",
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.6.1"
+  }
 }

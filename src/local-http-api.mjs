@@ -1,5 +1,6 @@
 import http from 'node:http';
 
+import { createAgentInterface } from './agent-interface-contract.mjs';
 import { LocalRuntimeError, LocalWorkService } from './local-work-service.mjs';
 
 const LOOPBACK_HOSTS = new Set(['127.0.0.1', '::1', 'localhost']);
@@ -40,16 +41,30 @@ function workRoute(pathname) {
   };
 }
 
+function toolRoute(pathname) {
+  const parts = pathname.split('/').filter(Boolean);
+  if (parts[0] !== 'v1' || parts[1] !== 'tools') return null;
+  return { toolName: parts[2] ? decodeURIComponent(parts[2]) : null, partCount: parts.length };
+}
+
 export function createLocalHttpServer({ logPath = '.infra/events.jsonl', host = '127.0.0.1', bodyLimitBytes } = {}) {
   if (!LOOPBACK_HOSTS.has(host)) {
     throw new LocalRuntimeError('Local runtime can bind only to a loopback host', 400, 'non-loopback-host');
   }
   const service = new LocalWorkService({ logPath });
+  const agentInterface = createAgentInterface({ service });
   const server = http.createServer(async (request, response) => {
     try {
       const url = new URL(request.url, `http://${host}`);
       if (request.method === 'GET' && url.pathname === '/health') {
         return json(response, 200, { ok: true, runtime: 'infra-local', storage: 'jsonl' });
+      }
+      const tool = toolRoute(url.pathname);
+      if (tool && request.method === 'GET' && tool.partCount === 2) {
+        return json(response, 200, { tools: agentInterface.catalog() });
+      }
+      if (tool && request.method === 'POST' && tool.toolName && tool.partCount === 3) {
+        return json(response, 200, await agentInterface.invoke(tool.toolName, await readJson(request, bodyLimitBytes)));
       }
       const route = workRoute(url.pathname);
       if (!route) throw new LocalRuntimeError('Route not found', 404, 'route-not-found');
@@ -84,7 +99,7 @@ export function createLocalHttpServer({ logPath = '.infra/events.jsonl', host = 
       });
     }
   });
-  return { server, service, host };
+  return { server, service, agentInterface, host };
 }
 
 export async function startLocalHttpServer(options = {}) {
